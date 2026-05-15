@@ -2,7 +2,9 @@ package main;
 
 // importar las clases necesarias para la prueba
 import modelo.Curso;
+import modelo.Estudiante;
 import modelo.Persona;
+import modelo.Profesor;
 import modelo.TipoCarrera;
 
 public class Main {
@@ -11,37 +13,43 @@ public class Main {
 
         // crear un objeto de tipo Persona para probar
         Persona persona1 = new Persona("Carlos", 20, "001");
-
-        // mostrar la informacion de la persona en pantalla
         persona1.mostrarInfo();
-
-        // cambiar el nombre usando el setter
-        persona1.setNombre("Carlos Ramirez");
-
-        // mostrar el nombre actualizado usando el getter
-        System.out.println("Nombre actualizado: " + persona1.getNombre());
-
         System.out.println("----------------------------");
 
-        // crear un curso usando el enum TipoCarrera
+        // crear un estudiante que hereda de Persona
+        Estudiante estudiante1 = new Estudiante("Jefferson", 19, "002", "2024001", TipoCarrera.INGENIERIA_SISTEMAS);
+
+        // agregar notas al estudiante
+        estudiante1.agregarNota(85.5);
+        estudiante1.agregarNota(90.0);
+        estudiante1.agregarNota(78.5);
+
+        // intentar agregar una nota invalida
+        estudiante1.agregarNota(110);
+
+        // mostrar info del estudiante con overriding
+        estudiante1.mostrarInfo();
+        System.out.println("----------------------------");
+
+        // crear un profesor que hereda de Persona
+        Profesor profesor1 = new Profesor("Dr. Martinez", 45, "003", "PRF001", "Programacion", 15);
+
+        // mostrar info del profesor con overriding
+        profesor1.mostrarInfo();
+        System.out.println("----------------------------");
+
+        // crear un curso y asignarlo
         Curso curso1 = new Curso("Programacion 1", "PRG101", 4, TipoCarrera.INGENIERIA_SISTEMAS);
 
-        // mostrar la informacion del curso
+        // inscribir al estudiante en el curso usando su carnet
+        curso1.inscribirEstudiante(estudiante1.getCarnet());
+
+        // mostrar info del curso
         curso1.mostrarInfo();
 
-        // inscribir estudiantes al curso
-        curso1.inscribirEstudiante("2024001");
-        curso1.inscribirEstudiante("2024002");
-
-        // intentar inscribir un estudiante que ya existe
-        curso1.inscribirEstudiante("2024001");
-
-        // inscribir con mensaje personalizado usando overloading
-        curso1.inscribirEstudiante("2024003", "Bienvenido al curso de Programacion 1");
-
+        // type casting de Estudiante a Persona
+        Persona personaCast = (Persona) estudiante1;
         System.out.println("----------------------------");
-
-        // mostrar la informacion actualizada del curso
-        curso1.mostrarInfo();
+        System.out.println("Type casting exitoso: " + personaCast.getNombre());
     }
 }
