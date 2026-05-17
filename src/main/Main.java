@@ -1,55 +1,81 @@
 package main;
 
-// importar las clases necesarias para la prueba
+// importar todas las clases necesarias
 import modelo.Curso;
 import modelo.Estudiante;
 import modelo.Persona;
 import modelo.Profesor;
 import modelo.TipoCarrera;
+import servicio.GestorUniversidad;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // crear un objeto de tipo Persona para probar
-        Persona persona1 = new Persona("Carlos", 20, "001");
-        persona1.mostrarInfo();
+        // crear el gestor del sistema universitario
+        GestorUniversidad gestor = new GestorUniversidad();
         System.out.println("----------------------------");
 
-        // crear un estudiante que hereda de Persona
+        // crear estudiantes
         Estudiante estudiante1 = new Estudiante("Jefferson", 19, "002", "2024001", TipoCarrera.INGENIERIA_SISTEMAS);
+        Estudiante estudiante2 = new Estudiante("Maria", 20, "003", "2024002", TipoCarrera.MEDICINA);
 
-        // agregar notas al estudiante
+        // agregar notas a los estudiantes
         estudiante1.agregarNota(85.5);
         estudiante1.agregarNota(90.0);
         estudiante1.agregarNota(78.5);
+        estudiante2.agregarNota(95.0);
+        estudiante2.agregarNota(88.0);
 
-        // intentar agregar una nota invalida
-        estudiante1.agregarNota(110);
-
-        // mostrar info del estudiante con overriding
-        estudiante1.mostrarInfo();
+        // agregar estudiantes al gestor
+        gestor.agregarEstudiante(estudiante1);
+        gestor.agregarEstudiante(estudiante2);
         System.out.println("----------------------------");
 
-        // crear un profesor que hereda de Persona
+        // crear y agregar un profesor
         Profesor profesor1 = new Profesor("Dr. Martinez", 45, "003", "PRF001", "Programacion", 15);
-
-        // mostrar info del profesor con overriding
-        profesor1.mostrarInfo();
+        gestor.agregarProfesor(profesor1);
         System.out.println("----------------------------");
 
-        // crear un curso y asignarlo
+        // crear y agregar un curso
         Curso curso1 = new Curso("Programacion 1", "PRG101", 4, TipoCarrera.INGENIERIA_SISTEMAS);
+        gestor.agregarCurso(curso1);
+        System.out.println("----------------------------");
 
-        // inscribir al estudiante en el curso usando su carnet
+        // inscribir estudiantes en el curso
         curso1.inscribirEstudiante(estudiante1.getCarnet());
+        curso1.inscribirEstudiante(estudiante2.getCarnet());
+        System.out.println("----------------------------");
 
-        // mostrar info del curso
-        curso1.mostrarInfo();
+        // buscar un estudiante por carnet usando try catch
+        try {
+            Estudiante encontrado = gestor.buscarEstudiante("2024001");
+            System.out.println("Estudiante encontrado: " + encontrado.getNombre());
+        } catch (RuntimeException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // intentar buscar un estudiante que no existe
+        try {
+            Estudiante noExiste = gestor.buscarEstudiante("9999");
+            System.out.println("Estudiante encontrado: " + noExiste.getNombre());
+        } catch (RuntimeException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        System.out.println("----------------------------");
+
+        // mostrar todos los estudiantes
+        gestor.mostrarEstudiantes();
+
+        // mostrar todos los profesores
+        gestor.mostrarProfesores();
+
+        // mostrar todos los cursos
+        gestor.mostrarCursos();
 
         // type casting de Estudiante a Persona
         Persona personaCast = (Persona) estudiante1;
-        System.out.println("----------------------------");
         System.out.println("Type casting exitoso: " + personaCast.getNombre());
     }
 }
