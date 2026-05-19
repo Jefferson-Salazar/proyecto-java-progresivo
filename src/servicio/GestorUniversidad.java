@@ -145,4 +145,30 @@ public class GestorUniversidad {
     public ArrayList<Curso> getCursos() {
         return cursos;
     }
+    
+ // buscar un profesor por su codigo
+    public Profesor buscarProfesor(String codigo) {
+        // recorrer la lista de profesores
+        for (Profesor profesor : profesores) {
+            // verificar si el codigo coincide
+            if (profesor.getCodigoProfesor().equals(codigo)) {
+                return profesor;
+            }
+        }
+        // lanzar excepcion si no se encuentra el profesor
+        throw new RuntimeException("No se encontro ningun profesor con el codigo: " + codigo);
+    }
+
+    // buscar un curso por su codigo
+    public Curso buscarCurso1(String codigo) {
+        // recorrer la lista de cursos
+        for (Curso curso : cursos) {
+            // verificar si el codigo coincide
+            if (curso.getCodigo().equals(codigo)) {
+                return curso;
+            }
+        }
+        // lanzar excepcion si no se encuentra el curso
+        throw new RuntimeException("No se encontro ningun curso con el codigo: " + codigo);
+    }
 }
