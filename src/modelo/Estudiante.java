@@ -71,8 +71,8 @@ public class Estudiante extends Persona {
         for (double nota : notas) {
             suma += nota;
         }
-        // dividir entre la cantidad de notas y devolver el promedio
-        return suma / notas.size();
+        // mostrar el promedio con solo 2 decimales sin perder precision
+        return Math.round((suma / notas.size()) * 100.0) / 100.0;
     }
 
     // devolver la lista de notas
