@@ -118,24 +118,33 @@ public class Main {
         System.out.print("Carnet: ");
         String carnet = scanner.nextLine();
 
-        // mostrar las carreras disponibles
+     // mostrar las carreras disponibles con numeros
         System.out.println("Carreras disponibles:");
-        // recorrer el enum para mostrar las opciones
-        for (TipoCarrera carrera : TipoCarrera.values()) {
-            System.out.println("  - " + carrera);
-        }
-        System.out.print("Carrera (escribe exactamente): ");
-        String carreraTexto = scanner.nextLine();
+        System.out.println("1. Ingenieria en Sistemas");
+        System.out.println("2. Administracion de Empresas");
+        System.out.println("3. Derecho");
+        System.out.println("4. Medicina");
+        System.out.println("5. Psicologia");
+        System.out.print("Elige una opcion: ");
+        int opcionCarrera = scanner.nextInt();
+        scanner.nextLine();
 
-        // intentar crear el estudiante con la carrera elegida
-        try {
-            // convertir el texto a enum
-            TipoCarrera tipoCarrera = TipoCarrera.valueOf(carreraTexto);
-            Estudiante estudiante = new Estudiante(nombre, edad, id, carnet, tipoCarrera);
-            gestor.agregarEstudiante(estudiante);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Carrera no valida");
+        // convertir el numero elegido al enum correspondiente
+        TipoCarrera tipoCarrera;
+        switch (opcionCarrera) {
+            case 1: tipoCarrera = TipoCarrera.INGENIERIA_SISTEMAS; break;
+            case 2: tipoCarrera = TipoCarrera.ADMINISTRACION_EMPRESAS; break;
+            case 3: tipoCarrera = TipoCarrera.DERECHO; break;
+            case 4: tipoCarrera = TipoCarrera.MEDICINA; break;
+            case 5: tipoCarrera = TipoCarrera.PSICOLOGIA; break;
+            default:
+                System.out.println("Opcion no valida");
+                return;
         }
+
+        // crear el estudiante y agregarlo al gestor
+        Estudiante estudiante = new Estudiante(nombre, edad, id, carnet, tipoCarrera);
+        gestor.agregarEstudiante(estudiante);
     }
 
     // metodo para registrar un nuevo profesor
@@ -170,22 +179,33 @@ public class Main {
         int creditos = scanner.nextInt();
         scanner.nextLine();
 
-        // mostrar las carreras disponibles
+     // mostrar las carreras disponibles con numeros
         System.out.println("Carreras disponibles:");
-        for (TipoCarrera carrera : TipoCarrera.values()) {
-            System.out.println("  - " + carrera);
-        }
-        System.out.print("Carrera (escribe exactamente): ");
-        String carreraTexto = scanner.nextLine();
+        System.out.println("1. Ingenieria en Sistemas");
+        System.out.println("2. Administracion de Empresas");
+        System.out.println("3. Derecho");
+        System.out.println("4. Medicina");
+        System.out.println("5. Psicologia");
+        System.out.print("Elige una opcion: ");
+        int opcionCarrera = scanner.nextInt();
+        scanner.nextLine();
 
-        // intentar crear el curso con la carrera elegida
-        try {
-            TipoCarrera tipoCarrera = TipoCarrera.valueOf(carreraTexto);
-            Curso curso = new Curso(nombre, codigo, creditos, tipoCarrera);
-            gestor.agregarCurso(curso);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Carrera no valida");
+        // convertir el numero elegido al enum correspondiente
+        TipoCarrera tipoCarrera;
+        switch (opcionCarrera) {
+            case 1: tipoCarrera = TipoCarrera.INGENIERIA_SISTEMAS; break;
+            case 2: tipoCarrera = TipoCarrera.ADMINISTRACION_EMPRESAS; break;
+            case 3: tipoCarrera = TipoCarrera.DERECHO; break;
+            case 4: tipoCarrera = TipoCarrera.MEDICINA; break;
+            case 5: tipoCarrera = TipoCarrera.PSICOLOGIA; break;
+            default:
+                System.out.println("Opcion no valida");
+                return;
         }
+
+        // crear el curso y agregarlo al gestor
+        Curso curso = new Curso(nombre, codigo, creditos, tipoCarrera);
+        gestor.agregarCurso(curso);
     }
 
     // metodo para inscribir un estudiante en un curso
