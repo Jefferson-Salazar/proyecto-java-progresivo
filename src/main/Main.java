@@ -1,11 +1,13 @@
 package main;
 
 // importar todas las clases necesarias
+import java.util.ArrayList;
 import modelo.Curso;
 import modelo.Estudiante;
 import modelo.Persona;
 import modelo.Profesor;
 import modelo.TipoCarrera;
+import servicio.GestorArchivos;
 import servicio.GestorUniversidad;
 
 public class Main {
@@ -63,6 +65,18 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
 
+        System.out.println("----------------------------");
+
+        // crear el gestor de archivos para persistencia
+        GestorArchivos gestorArchivos = new GestorArchivos("estudiantes.txt");
+
+        // guardar los estudiantes en el archivo
+        gestorArchivos.guardarEstudiantes(gestor.getEstudiantes());
+        System.out.println("----------------------------");
+
+        // cargar los estudiantes desde el archivo
+        ArrayList<Estudiante> estudiantesCargados = gestorArchivos.cargarEstudiantes();
+        System.out.println("Estudiantes cargados desde archivo: " + estudiantesCargados.size());
         System.out.println("----------------------------");
 
         // mostrar todos los estudiantes
